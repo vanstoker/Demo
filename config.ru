@@ -39,8 +39,8 @@ class App < Roda
 
         # POST /hello request - - - - Why this route is't work?
         r.post do
-          puts "Someone said #{@greeting}!"
-          #r.redirect
+          "Someone said #{@greeting}!"
+          # r.redirect
         end
       end
 
