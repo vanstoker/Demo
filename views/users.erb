@@ -6,7 +6,10 @@
 </head>
 <body>
 	<h1>Users page</h1>
-	<%= user.to_hash %>
-	<p><%= user.user %></p>
+	<%= user.to_hash %><br /><br />
+	
+	<form action="/users/#{user.id}" method="delete">
+		<input type="submit" value="Delete">
+	</form>
 </body>
 </html>

@@ -35,39 +35,39 @@ class App < Roda
         render("new", locals: {errors: nil})
       end
 
-      r.on Integer do |id|
-         # GET /users/2 - Получить запись по id
-         r.get do
-           user = User.find(id: id)
-           JSON.generate(user.to_hash)
-           render("users", locals: {user: user})
-         end
-        
       # GET form to update /users//update/2 - Для ввода обновленных данных
       r.get "update" do
-        "Fine"
+        render("update")
       end
 
-      # UPDATE /users/2 - Изменение записи с указанным id
-      r.put do       
-        user = User.find(id: id)
-        user.set(r.params)
-        if user.valid?
-          user.save
-          r.redirect "/users/#{user.id}"
-        else
-          render("new", locals: {errors: user.errors})
+      r.on Integer do |id|
+        # GET /users/2 - Получить запись по id
+        r.get do
+          user = User.find(id: id)
+          JSON.generate(user.to_hash)
+          render("users", locals: {user: user})
         end
-        # JSON.generate(user.to_hash)
-      end
 
-      # DELETE /users/2 - Удаление записи с указанным id
-      r.delete do
-        user = User.find(id: id).delete
-        "Dataset whid ID: #{id} was deleted"
+        # UPDATE /users/2 - Изменение записи с указанным id
+        r.put do       
+          user = User.find(id: id)
+          user.set(r.params)
+          if user.valid?
+            user.save
+            r.redirect "/users/#{user.id}"
+          else
+            render("new", locals: {errors: user.errors})
+          end
+        end
+
+        # DELETE /users/2 - Удаление записи с указанным id
+        r.delete do
+          binding.pry
+          user = User.find(id: id).delete
+          "Dataset whid ID: #{id} was deleted"
+        end
       end
     end
-  end
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
   end
